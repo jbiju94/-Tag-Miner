@@ -6,6 +6,7 @@ from textblob import TextBlob
 import json
 from fire_engine import sio
 
+
 # Variables that contains the user credentials to access Twitter API
 access_token = const.access_token
 access_token_secret = const.access_token_secret

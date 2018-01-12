@@ -1,10 +1,14 @@
 # global constants
 
-access_token = "XXXXXXXXXXXXXXXX"
-access_token_secret = "XXXXXXXXXXXXXXXXXX"
-consumer_key = "XXXXXXXXXXXXXXXXXX"
-consumer_secret = "XXXXXXXXXXXXXXXXXXX"
+
+
+""" FORMAT
+access_token = ""
+access_token_secret = ""
+consumer_key = ""
+consumer_secret = ""
 
 filter_keywords = ['python', 'javascript', 'ruby']
 
 Debug = True
+"""
