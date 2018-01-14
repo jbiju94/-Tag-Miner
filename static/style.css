@@ -1,0 +1,165 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+.bar-chart {
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.bar-chart > .legend {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    margin-bottom: -45px;
+    border-top: 1px solid #000;
+}
+
+.bar-chart > .legend > .item {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 25%;
+}
+
+.bar-chart > .legend > .item:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 1px;
+    height: 8px;
+    background-color: #000;
+    margin-top: -8px;
+}
+
+.bar-chart > .legend > .item.text-right:before {
+    right: 0;
+    left: auto;
+}
+
+.bar-chart > .legend > .item h4 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bar-chart > .chart {
+    position: relative;
+    width: 100%;
+}
+
+.bar-chart > .chart > .item {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.bar-chart > .chart > .item > .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff4081;
+    z-index: 5;
+}
+
+.bar-chart > .chart > .item > .bar > .percent {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 12px;
+    z-index: 15;
+}
+
+.bar-chart > .chart > .item > .bar > .item-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #3e50b4;
+    z-index: 10;
+}
+
+.bar-chart > .chart > .item > .bar > .item-progress > .title {
+    display: block;
+    position: absolute;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 12px;
+    letter-spacing: 2px;
+    z-index: 15;
+}
+
+
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}

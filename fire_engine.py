@@ -70,7 +70,7 @@ def index():
 @sio.on("fire_start")
 def on_start(data):
     if const.Debug:
-        print('Client Request: Fire Service')
+        print('Fire Service Request: {0}'.format(str(data)))
         start_stream()
 
 

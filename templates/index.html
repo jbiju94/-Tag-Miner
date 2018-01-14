@@ -8,13 +8,113 @@
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 </head>
 <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Tweet Miner</a>
+            </div>
+            <!--<ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>-->
+        </div>
+    </nav>
     <div class="container-fluid">
+        <div class="jumbotron">
+            <form class="form-inline" action="">
+                <div class="form-group">
+                    <label for="idHashTag">Keyword: </label>
+                    <input type="text" class="form-control" id="idHashTag">
+                </div>
+                <button type="submit" id="idBtnStart" class="btn btn-primary">Start Mining</button>
+            </form>
+        </div>
         <div class="row">
-            <div class="col-md-12">
-                <h1>Tweet Miner</h1>
-                <button id="idBtnStart" >START</button>
+            <!-- Tweet Box -->
+            <div class="col-md-7">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-comment"></span> Chat
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            <ul class="dropdown-menu slidedown">
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
+                                    </span>Refresh</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
+                                    </span>Available</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
+                                    </span>Busy</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
+                                    Away</a></li>
+                                <li class="divider"></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
+                                Sign Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                <div class="panel-body" id="idTweetBox">
+                    <ul class="chat" id="idTweetBoxList">
+                        <li class="left clearfix">
+                            <span class="chat-img pull-left">
+                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+            <!-- //Tweet Box -->
+            <!-- Graph Content -->
+            <div class="col-md-5">
+                <div class="bar-chart">
+                    <div class="legend">
+                        <div class="item">
+                            <h4>Newbie</h4>
+                        </div>
+                        <div class="item">
+                            <h4>Decent</h4>
+                        </div>
+                        <div class="item text-right">
+                            <h4>Good</h4>
+                        </div>
+                        <div class="item text-right">
+                            <h4>Superhero</h4>
+                        </div>
+                    </div>
+                    <div class="chart clearfix">
+                        <div class="item">
+                            <div class="bar">
+                                <span class="percent">92%</span>
+
+                                <div class="item-progress" data-percent="92">
+                                    <span class="title">Creativity</span>
+                                </div>
+                                <!-- //.item-progress -->
+                            </div>
+                            <!-- //.bar -->
+                        </div>
+                    </div>
+                    <!-- //.chart -->
+                </div>
+                <!-- //.bar-chart -->
+            </div>
+            <!-- //.col-md-4 -->
+        </div>
+        <!-- //Graph Content -->
     </div>
     <!-- Application Logic -->
     <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
