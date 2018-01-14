@@ -7,7 +7,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 </head>
-<body>
+<body style="overflow-x: hidden">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -19,10 +19,16 @@
                 <li><a href="#">Page 2</a></li>
                 <li><a href="#">Page 3</a></li>
             </ul>-->
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Keyword(s)" id="idHashTag">
+                </div>
+                <button id="idBtnStart" class="btn btn-primary">Start</button>
+            </form>
         </div>
     </nav>
     <div class="container-fluid">
-        <div class="jumbotron">
+        <!--<div class="jumbotron">
             <form class="form-inline" action="">
                 <div class="form-group">
                     <label for="idHashTag">Keyword: </label>
@@ -30,35 +36,23 @@
                 </div>
                 <button type="submit" id="idBtnStart" class="btn btn-primary">Start Mining</button>
             </form>
-        </div>
+        </div>-->
         <div class="row">
             <!-- Tweet Box -->
             <div class="col-md-7">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <span class="glyphicon glyphicon-comment"></span> Chat
+                        Tweets
                         <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </button>
-                            <ul class="dropdown-menu slidedown">
-                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
-                                    </span>Refresh</a></li>
-                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
-                                    </span>Available</a></li>
-                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
-                                    </span>Busy</a></li>
-                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
-                                    Away</a></li>
-                                <li class="divider"></li>
-                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
-                                Sign Out</a></li>
-                            </ul>
+                            <span id="idConnectionStatus">
+
+                            </span>
                         </div>
                     </div>
                 <div class="panel-body" id="idTweetBox">
                     <ul class="chat" id="idTweetBoxList">
-                        <li class="left clearfix">
+                        <!-- List Item Template -->
+                        <!--<li class="left clearfix" style="visibility:hidden" id="idTweetDummyObj">
                             <span class="chat-img pull-left">
                                 <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
                             </span>
@@ -72,7 +66,7 @@
                                     dolor, quis ullamcorper ligula sodales.
                                 </p>
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -80,8 +74,41 @@
             <!-- //Tweet Box -->
             <!-- Graph Content -->
             <div class="col-md-5">
+
+                    <div class="skill5">
+				        <div class="container">
+					        <div class="row">
+                                <div class="col-md-1">
+                                    <div class="skill5-counter">
+                                        <p class="counter-count" id="idTotalTweetCount">0</p>
+                                        <p class="counter-bottom">Total Tweets</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="skill5-counter">
+                                        <p class="counter-count" id="idPositiveTweetCount">0</p>
+                                        <p class="counter-bottom">Positive Tweets</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="skill5-counter">
+                                        <p class="counter-count" id="idNeutralTweetCount">0</p>
+                                        <p class="counter-bottom">Neutral Tweets</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="skill5-counter">
+                                        <p class="counter-count" id="idNegativeTweetCount">0</p>
+                                        <p class="counter-bottom">Negative Tweets</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Positive -->
                 <div class="bar-chart">
-                    <div class="legend">
+                    <!--<div class="legend">
                         <div class="item">
                             <h4>Newbie</h4>
                         </div>
@@ -94,14 +121,37 @@
                         <div class="item text-right">
                             <h4>Superhero</h4>
                         </div>
-                    </div>
+                    </div>-->
+                    <!-- //.legend -->
                     <div class="chart clearfix">
                         <div class="item">
                             <div class="bar">
-                                <span class="percent">92%</span>
+                                <span class="percent" id="idPositiveBarChartP"></span>
 
-                                <div class="item-progress" data-percent="92">
-                                    <span class="title">Creativity</span>
+                                <div class="item-progress" id="idPositiveBarChart" data-percent="20">
+                                    <span class="title">Positive</span>
+                                </div>
+                                <!-- //.item-progress -->
+                            </div>
+                            <!-- //.bar -->
+                        </div>
+                        <div class="item">
+                            <div class="bar">
+                                <span class="percent" id="idNeutralBarChartP"></span>
+
+                                <div class="item-progress" id="idNeutralBarChart" data-percent="20">
+                                    <span class="title">Neutral</span>
+                                </div>
+                                <!-- //.item-progress -->
+                            </div>
+                            <!-- //.bar -->
+                        </div>
+                        <div class="item">
+                            <div class="bar">
+                                <span class="percent" id="idNegativeBarChartP"></span>
+
+                                <div class="item-progress" id="idNegativeBarChart" data-percent="20">
+                                    <span class="title">Negative</span>
                                 </div>
                                 <!-- //.item-progress -->
                             </div>

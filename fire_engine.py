@@ -6,6 +6,7 @@ from tweepy import Stream
 import global_const as const
 from textblob import TextBlob
 import json
+import math
 import eventlet
 eventlet.monkey_patch()
 
@@ -18,13 +19,22 @@ consumer_secret = const.consumer_secret
 app = Flask(__name__)
 sio = SocketIO(app)
 
+keyword_params = ""
+
 
 # listener
 class Listener(StreamListener):
+    tweet_total_count = 0
+    tweet_positive_count = 0
+    tweet_negative_count = 0
+    tweet_neutral_count = 0
+
     def on_data(self, data):
         tweet = json.loads(data)
         if tweet['retweeted']:
             return
+
+        Listener.tweet_total_count += 1
 
         blob = TextBlob(tweet['text'])
         sent = blob.sentiment
@@ -32,31 +42,47 @@ class Listener(StreamListener):
         polarity = sent.polarity
         subjectivity = sent.subjectivity
 
-        positive_sentiment = True
         if polarity < 0:
-            positive_sentiment = False
+            Listener.tweet_negative_count += 1
+        elif polarity == 0:
+            Listener.tweet_neutral_count += 1
+        else:
+            Listener.tweet_positive_count += 1
 
-        tweet['positive_sentiment'] = positive_sentiment
-        resp = {"text": tweet['text'], "userId": tweet['user']['name'], "userName": tweet['user']['screen_name'],
-                "sentiment": polarity, "subjectivity": subjectivity}
+        resp = {"text": tweet['text'], "userId": tweet['user']['screen_name'], "userName": tweet['user']['name'],
+                "userImage": tweet['user']['profile_image_url_https'],
+                "tweetTime": tweet['created_at'], "sentiment": polarity, "subjectivity": subjectivity}
+
+        count = {"total": Listener.tweet_total_count,
+                 "positive": Listener.tweet_positive_count,
+                 "positive_percent": math.floor((Listener.tweet_positive_count / Listener.tweet_total_count)),
+                 "neutral":  Listener.tweet_neutral_count,
+                 "neutral_percent": math.floor((Listener.tweet_neutral_count / Listener.tweet_total_count)),
+                 "negative": Listener.tweet_negative_count,
+                 "negative_percent": math.floor((Listener.tweet_negative_count / Listener.tweet_total_count))
+                 }
+
         if const.Debug:
             print('Status: Sending New Tweet')
-        sio.emit("notification", {"tweet": resp})
+        sio.emit("notification", {"tweet": resp, "count": count})
         # print rep
 
     def on_error(self, status):
         print status
 
 
-def start_stream():
+def start_stream(data):
     # This handles Twitter authentication and the connection to Twitter Streaming API
     l = Listener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
 
-    # This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
-    stream.filter(track=const.filter_keywords)
+    if not data:
+        # This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
+        stream.filter(track=const.filter_keywords)
+    else:
+        stream.filter(track=data.split(","))
 
     if const.Debug:
         print('Status: Stream Instance Created.')
@@ -71,7 +97,7 @@ def index():
 def on_start(data):
     if const.Debug:
         print('Fire Service Request: {0}'.format(str(data)))
-        start_stream()
+        start_stream(data['data'])
 
 
 @sio.on('client_connected')
